@@ -1,5 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+api/database.db
+
 # dependencies
 /node_modules
 /.pnp
@@ -21,3 +23,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+api/__pycache__/utils.cpython-39.pyc
+api/database.db
+api/*.db
+api/*.pyc

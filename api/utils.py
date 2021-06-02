@@ -1,5 +1,5 @@
 from flask.json import jsonify
-from .models import SpotifyToken, Vote
+from .models import SpotifyToken, Vote, Room
 from datetime import timedelta, datetime
 from dotenv import load_dotenv
 from requests import post, put, get
@@ -7,6 +7,7 @@ from . import db
 import string
 import secrets
 import os
+import random
 
 load_dotenv()
 
@@ -16,6 +17,17 @@ REDIRECT_URI = os.getenv('REDIRECT_URI')
 
 SPOTIFY_URL = 'https://accounts.spotify.com'
 BASE_URL = 'https://api.spotify.com/v1/me'
+
+def generate_unique_code():
+    length = 6
+
+    while True:
+        code = ''.join(random.choices(string.ascii_uppercase, k=length))
+        if Room.query.filter_by(code=code).count() == 0:
+            break
+    
+    return code
+
 
 def generate_session_key():
     alphabet = string.ascii_letters + string.digits
@@ -109,5 +121,13 @@ def skip_song(session_id):
     execute_spotify_api_request(session_id, "/player/next", post_=True)
 
 
-# def update_room_song(room, song_id):
-#     print(room.current_song)
+def update_room_song(room, song_id):
+    current_song = room.current_song
+
+    if current_song != song_id:
+        room.current_song = song_id
+        db.session.commit()
+        votes = Vote.query.filter_by(room=room, song_id=song_id).all()
+        for vote in votes:
+            db.session.delete(vote)
+        db.session.commit()

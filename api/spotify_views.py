@@ -64,9 +64,8 @@ def is_authenticated():
 def get_current_song():
     room_code = session['room_code']
     room = Room.query.filter_by(code=room_code).first()
-    if room:
-        print(room.host)
-    else:    
+
+    if not room:    
         return jsonify({}), 404
 
     host = room.host
@@ -91,8 +90,7 @@ def get_current_song():
         name = artist.get('name')
         artist_string += name
 
-    # votes = len(Vote.query.filter_by(room=room, song_id=song_id).all())
-    votes = 0
+    votes = len(Vote.query.filter_by(room=room, song_id=song_id).all())
 
     song = {
         'title': item.get('name'),
@@ -106,15 +104,7 @@ def get_current_song():
         'id': song_id
     }
 
-    # update_room_song(room, song_id)
-    current_song = room.current_song
-
-    if current_song != song_id:
-        room.current_song = song_id
-        db.session.commit()
-        votes = Vote.query.filter_by(room=room)
-        db.session.delete(votes)
-        db.session.commit()
+    update_room_song(room, song_id)
 
     return jsonify(song), 200
 
@@ -147,13 +137,14 @@ def skip():
     room = Room.query.filter_by(code=room_code).first()
     votes = Vote.query.filter_by(room=room, song_id=room.current_song).all()
     votes_needed = room.votes_to_skip
-
+    
     if session['key'] == room.host or len(votes) + 1 >= votes_needed:
-        db.session.delete(votes)
+        for vote in votes:
+            db.session.delete(vote)
         db.session.commit()
         skip_song(room.host)
     else:
-        vote = Vote(user=session['key'], room=room, song_id=room.current_song)
+        vote = Vote(user=session['key'], song_id=room.current_song, room=room)
         db.session.add(vote)
         db.session.commit()
 
