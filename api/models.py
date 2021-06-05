@@ -1,7 +1,19 @@
 from . import db
 from flask_sqlalchemy import orm
-from .utils import generate_unique_code
 import datetime
+import random
+import string
+
+
+def generate_unique_code():
+    length = 6
+
+    while True:
+        code = ''.join(random.choices(string.ascii_uppercase, k=length))
+        if Room.query.filter_by(code=code).count() == 0:
+            break
+
+    return code
 
 
 class Room(db.Model):
@@ -18,7 +30,7 @@ class Room(db.Model):
         columns = orm.class_mapper(self.__class__).mapped_table.c
         return {
             col.name: getattr(self, col.name)
-                for col in columns
+            for col in columns
         }
 
 

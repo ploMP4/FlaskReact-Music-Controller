@@ -1,13 +1,13 @@
 from flask.json import jsonify
-from .models import SpotifyToken, Vote, Room
+from . import db
+from .models import SpotifyToken, Vote
 from datetime import timedelta, datetime
 from dotenv import load_dotenv
 from requests import post, put, get
-from . import db
-import string
 import secrets
 import os
-import random
+import string
+
 
 load_dotenv()
 
@@ -17,16 +17,6 @@ REDIRECT_URI = os.getenv('REDIRECT_URI')
 
 SPOTIFY_URL = 'https://accounts.spotify.com'
 BASE_URL = 'https://api.spotify.com/v1/me'
-
-def generate_unique_code():
-    length = 6
-
-    while True:
-        code = ''.join(random.choices(string.ascii_uppercase, k=length))
-        if Room.query.filter_by(code=code).count() == 0:
-            break
-    
-    return code
 
 
 def generate_session_key():

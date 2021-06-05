@@ -14,8 +14,6 @@ import { Link, useHistory } from "react-router-dom";
 import { Collapse } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 
-//TODO: handleUpdateButtonPressed
-
 const CreateRoomPage = ({ update, _guestCanPause, _votesToSkip, roomCode }) => {
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");

@@ -43,10 +43,10 @@ const MediaPlayer = ({ image_url, title, artist, is_playing, time, duration, vot
   return (
     <Card>
       <Grid container alignItems="center">
-        <Grid item align="center" xs={4}>
+        <Grid item align="center" xs={12} sm={4}>
           <img src={image_url} height="100%" width="100%" alt=""/>
         </Grid>
-        <Grid item align="center" xs={8}>
+        <Grid item align="center" xs={12} sm={8}>
             <Typography component="h5" variant="h5">
                 {title}
             </Typography>

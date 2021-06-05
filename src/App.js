@@ -24,7 +24,7 @@ function App() {
     };
 
     isInRoom();
-  });
+  }, []);
 
   const clearRoomCode = () => {
     setRoomCode(null);
