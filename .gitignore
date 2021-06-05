@@ -27,3 +27,4 @@ api/__pycache__/utils.cpython-39.pyc
 api/database.db
 api/*.db
 api/*.pyc
+.env
