@@ -7,6 +7,10 @@
 ***This app let's you make rooms that your friends can join using the room code an be able to control the music that is playing. You can give them permission to play and pause the song and they can also vote to skip the song if enough votes are collected the song gets skipped. This app is meant to be used in something like a house party or a roadtrip since you can't hear the music from your browser.***
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Check out the app online
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Local Installation 
 
