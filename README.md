@@ -15,22 +15,23 @@
 ## Local Installation 
 
 ### Install the requierements 
+### Make sure pip and npm are installed on your computer
 
 *Windows:*
 
 #### ```pip install -r requirements.txt```
+#### ```npm install```
 
 *Linux:* 
 
 #### ```pip3 install -r requirements.txt```
+#### ```npm install```
 
 ### Create the spotify application on the spotify developer dashboard
 #### Then create a .env file inside of the /api folder with your variables *(use .env.exaple as a guide)*
 #### Add 127.0.0.1:*{PORT}* to allowed hosts on the spotify app settings in the developer dashboard
 
-### Finally make sure npm is installed on your computer
-
-### Run The Backend with
+### Finally Run The Backend with
 
 #### ```npm run api```
 
