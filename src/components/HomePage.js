@@ -7,7 +7,7 @@ const HomePage = () => {
     <Grid container spacing={3} align="center">
       <Grid item xs={12}>
         <Typography variant="h3" component="h3">
-          House Party
+          Music Controller
         </Typography>
       </Grid>
       <Grid item xs={12}>
